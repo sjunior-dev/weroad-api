@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  database:
+    image: mysql:${MYSQL_VERSION:-8.0.29}
+    command: --default-authentication-plugin=mysql_native_password --secure-file-priv=''
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-password123#}
+    volumes:
+      - ./infra/docker/mysql/conf.d/my.cnf:/etc/my.cnf:ro
+      - ./infra/docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d:ro
+      - ./infra/docker/mysql/tmp:/tmp:rw
+      - db-weroad-data:/var/lib/mysql:rw
+    networks:
+      - weroad-network
+    cpus: 2
+    mem_limit: 4G
+    mem_reservation: 2G
+
+  app-weroad:
+    container_name: app-weroad
+    build:
+      context: ./.
+      dockerfile: ./Dockerfile
+      args:
+        APP_ENV: local
+        APP_NAME: weroad
+        # APP_NAME: backoffice
+    volumes:
+      - ./:/app/app-weroad
+    depends_on:
+      - database
+    ports:
+      - "80:8000"
+    env_file:
+      - ./.env
+    networks:
+      - weroad-network
+    cpus: 0.5
+    mem_limit: 1G
+    mem_reservation: 512M
+
+
+networks:
+  weroad-network:
+    driver: bridge
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  db-weroad-data:
+  weroad-minio:
+###< doctrine/doctrine-bundle ###
