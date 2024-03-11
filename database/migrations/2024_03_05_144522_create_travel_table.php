@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->text('description');
             $table->integer('numberOfDays');
             $table->json('moods');
+            $table->boolean('public');
             $table->timestamp('createdAt');
             $table->timestamp('updatedAt');
         });

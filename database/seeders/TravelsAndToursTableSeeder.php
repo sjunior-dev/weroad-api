@@ -16,7 +16,7 @@ class TravelsAndToursTableSeeder extends Seeder
     {
         Travel::factory()
             ->has(Tour::factory()->count(10))
-            ->count(5)
+            ->count(50)
             ->create();
     }
 }

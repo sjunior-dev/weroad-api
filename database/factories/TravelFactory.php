@@ -35,6 +35,7 @@ class TravelFactory extends Factory
             'description' => fake()->text(200),
             'moods' => $moods,
             'numberOfDays' => fake()->numberBetween(1, 10),
+            'public' => fake()->boolean(),
             'createdAt' => now(),
             'updatedAt' => now(),
         ];

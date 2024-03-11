@@ -25,9 +25,20 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-            //
         });
     }
 
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json(['error' => 'Unauthenticated.'], 401);
+    }
 
+    public function render($request, Throwable $exception)
+    {
+        if ($request->is('api*')) {
+            $request->headers->set('Accept', 'application/json');
+        }
+
+        return parent::render($request, $exception);
+    }
 }
