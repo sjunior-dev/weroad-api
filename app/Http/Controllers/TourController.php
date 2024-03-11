@@ -30,9 +30,18 @@ class TourController extends Controller
         return new TourResource($tour);
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Tour $tour)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => ['required', 'max:255'],
+            'startingDate' => ['required'],
+            'endingDate' => ['required'],
+            'price' => ['required', 'gt:0'],
+        ]);
+
+        $tour->update($request->all());
+
+        return new TourResource($tour);
     }
 
 }

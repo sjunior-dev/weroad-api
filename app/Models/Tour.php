@@ -14,6 +14,7 @@ class Tour extends Model
     public const CREATED_AT = 'createdAt';
     public const UPDATED_AT = 'updatedAt';
 
+    protected $with = ['travels'];
     protected $fillable = [
         'travelId',
         'name',
