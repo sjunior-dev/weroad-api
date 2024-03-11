@@ -43,11 +43,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('travel', [TravelController::class, 'store'])->middleware('roles:admin');
 
     Route::get('travel/{travel:uuid}/tours', [TourController::class, 'index'])->middleware('roles:admin');
+    Route::post('travel/{travel:uuid}/tour', [TourController::class, 'store'])->middleware('roles:admin');
 });
-
-Route::apiResources([
-    'tours' => TourController::class,
-]);
 
 Route::post('login', [AuthController::class, 'login']);
 Route::post('logout', [AuthController::class, 'logout']);
