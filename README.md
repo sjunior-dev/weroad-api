@@ -106,3 +106,6 @@ Query Params examples:
     priceTo=430000 (4,300.00)
     orderBy=price 
 ```
+
+## Github Actions
+Also added `tests` running on Github Actions, last run [here](https://github.com/sjunior-dev/weroad-api/actions/runs/8246618543/job/22553016329), it run every PR on `develop/main` branches.
