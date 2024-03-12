@@ -159,7 +159,7 @@ class BusinessCaseTest extends TestCase
             'startingDate' => now()->addDays(fake()->numberBetween(5, 10)), 'endingDate' => now()->addDays(fake()->numberBetween(11, 15))
         ])->count(10)->create(['travelId' => $travel->id]);
 
-        $this->json('GET', 'api/search/'. $travel->slug.'?dateFrom='. now()->addDays(5).'&dateTo='.now()->addDays(10))
+        $this->json('GET', 'api/search/'. $travel->slug.'?dateFrom='. now()->addDays(4)->format('Y-m-d').'&dateTo='.now()->addDays(15)->format('Y-m-d'))
             ->assertStatus(200)
             ->assertJsonCount(10, 'data');
     }
