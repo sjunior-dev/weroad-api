@@ -1,8 +1,8 @@
 ## Setup
 ```bash
+    php -r "file_exists('.env') || copy('.env.example', '.env')
     composer install
     docker compose up -d
-
 ```
 To enter the container:
 ```bash
