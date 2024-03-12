@@ -1,0 +1,156 @@
+# @name login
+POST http://localhost/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "sjunior.dev@gmail.com",
+    "password": "password"
+}
+
+
+###
+# @name loginEditor
+POST http://localhost/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "email": "sjunior.dev1@gmail.com",
+    "password": "password"
+}
+
+
+
+###
+@authToken = {{login.response.body.data.apiToken}}
+
+# @name logout
+POST http://localhost/api/logout HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+
+###
+
+# @name testLogged
+GET http://localhost/api/test-admin HTTP/1.1
+Content-type: application/json
+Authorization: Bearer {{authToken}}
+###
+
+@authTokenEditor = {{loginEditor.response.body.data.apiToken}}
+# @name testLoggedEditor
+GET http://localhost/api/test-editor HTTP/1.1
+Content-type: application/json
+Authorization: Bearer {{authTokenEditor}}
+
+###
+
+# @name getUser
+GET http://localhost/api/user HTTP/1.1
+Content-type: application/json
+Authorization: Bearer {{authToken}}
+
+###
+
+# @name createTravel
+POST http://localhost/api/travel HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+
+{
+    "name": "Test Travel2 ",
+    "description": "Test Desc2 ",
+    "numberOfDays": 6,
+    "public": true,
+    "moods": {
+        "nature": 10,
+        "relax": 10,
+        "history": 40,
+        "culture": 10,
+        "party": 40
+    }
+}
+###
+
+# @name getTravels
+GET http://localhost/api/travels HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+# @name searchTours
+GET http://localhost/api/search/breanne-lesch HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+# @name searchToursPage
+GET http://localhost/api/search/breanne-lesch?page=2 HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+
+###
+# @name searchToursPriceFrom
+GET http://localhost/api/search/breanne-lesch
+    ?priceFrom=190000 HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+# @name searchToursPriceFromAndPriceTo
+GET http://localhost/api/search/breanne-lesch
+    ?priceFrom=190000
+    &priceTo=191000 HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+# @name searchToursDateFrom
+GET http://localhost/api/search/breanne-lesch
+    ?dateFrom=2024-03-15 HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+# @name searchToursDateFromAndDateTo
+GET http://localhost/api/search/breanne-lesch
+    ?dateFrom=2024-03-17
+    &dateTo=2024-03-18 HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+# @name searchToursOrderByPrice
+GET http://localhost/api/search/breanne-lesch
+    ?sortBy=price HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+###
+
+# @name getToursByTravel
+GET http://localhost/api/travel/ffd093c7-6615-430e-a5d5-868577c66338/tours HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+
+###
+# @name createTour
+POST http://localhost/api/travel/ffd093c7-6615-430e-a5d5-868577c66338/tour  HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authToken}}
+
+{
+    "name": "Test Travel51231",
+    "startingDate": "2024-03-25",
+    "endingDate": "2024-03-30",
+    "price": 10000
+
+}
+###
+
+@authTokenEditor = {{loginEditor.response.body.data.apiToken}}
+
+# @name upateTour
+PUT http://localhost/api/tour/f835784b-c951-4097-a445-fe762bf1b311  HTTP/1.1
+content-type: application/json
+authorization: Bearer {{authTokenEditor}}
+
+{
+    "name": "Test Travel515",
+    "startingDate": "2024-03-17",
+    "endingDate": "2024-03-26",
+    "price": 180000
+
+}
